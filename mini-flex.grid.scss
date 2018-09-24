@@ -1,0 +1,29 @@
+@function flex-size($fraction) {
+  @return #{$fraction * 100} + '%'; 
+}
+@mixin flex-grid {
+  display: flex;
+  flex-direction: column;
+}
+@mixin flex-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+@mixin flex-width($fraction, $grow: 0, $shrink: 0) {
+  $size: flex-size($fraction);
+  flex: $grow $shrink $size;
+}
+@mixin flex-offset($fraction, $direction: left) {
+  margin-#{$direction}: flex-size($fraction);
+}
+@mixin flex-row-width($fraction, $gutter, $grow: 0, $shrink: 0) {
+  $margin: $gutter * -1;
+  $size: calc(#{flex-size($fraction)} + #{$gutter}); 
+  flex: 0 0 $size;
+  margin: 0 $margin $margin 0;
+}
+@mixin flex-column-width($fraction, $gutter, $grow: 0, $shrink: 0) {
+  $size: calc(#{flex-size($fraction)} - #{$gutter});
+  flex: $grow $shrink $size;
+  margin: 0 $gutter $gutter 0;
+}
